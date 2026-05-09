@@ -10,11 +10,33 @@ Repositório de implementações e experimentos para a disciplina de Estruturas 
 
 Todo o código-fonte está organizado dentro das respectivas pastas, evitando duplicidade na raiz do repositório.
 
-## Compilação
+## Compilação Geral dos Artefatos
 
-Cada questão/pasta possui um Makefile próprio. Para compilar os arquivos de cada questão, entre na respectiva pasta e execute:
+Para compilar todos os projetos (q1, q2 e arvore-hash) de uma vez só, utilize o Makefile da raiz do repositório:
 
-### Compilar e executar Questão 1 (`q1`)
+```sh
+make        # compila todos os projetos e artefatos (q1, q2, arvore-hash)
+```
+
+Para compilar apenas uma das pastas:
+
+```sh
+make q1           # compila somente o q1/
+make q2           # compila somente o q2/
+make arvore-hash  # compila somente o arvore-hash/
+```
+
+Para limpar todos os arquivos objeto e executáveis gerados em todas as pastas, rode:
+
+```sh
+make clean
+```
+
+Cada pasta contém um Makefile próprio para compilação individual. O Makefile da raiz facilita build e limpeza em lote.
+
+## Compilação individual das pastas
+
+### Questão 1 (`q1`)
 
 ```sh
 cd q1
@@ -22,7 +44,7 @@ make
 ./mainq1
 ```
 
-### Compilar e executar Questão 2 (`q2`)
+### Questão 2 (`q2`)
 
 ```sh
 cd q2
@@ -30,19 +52,13 @@ make
 ./mainq2
 ```
 
-### Compilar e executar Sistema "Árvore-Hash" (`arvore-hash`)
+### Sistema "Árvore-Hash" (`arvore-hash`)
 
 ```sh
 cd arvore-hash
 make
 ./geraDados     # para criar o arquivo binário de dados
 ./interface     # para explorar as buscas nas estruturas (menu interativo)
-```
-
-Para limpar binários e arquivos objeto em qualquer pasta:
-
-```sh
-make clean
 ```
 
 ## Estrutura das pastas
