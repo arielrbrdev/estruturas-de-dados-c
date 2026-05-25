@@ -7,6 +7,7 @@ Repositório de implementações e experimentos para a disciplina de Estruturas 
 - [`q1/`](q1) – Implementações da Questão 1: busca sequencial, busca binária, estatísticas de tempo, e funções utilitárias de vetor.
 - [`q2/`](q2) – Implementações da Questão 2: busca sequencial em lista ligada.
 - [`arvore-hash/`](arvore-hash) – Sistema completo de busca de registros com árvore binária de busca (ABP), tabela hash e manipulação de arquivo binário.
+- [`listas/`](listas) – Implementações e exemplos básicos de listas (lista com vetor, tipos definidos, etc).
 - [`listase/`](listase) – Implementações de lista simplesmente encadeada, incluindo exemplos e exercícios (playlist, aula etc).
 - [`sort/`](sort) – Algoritmos de ordenação diversos.
 - [`verifica-malware/`](verifica-malware) – Implementação de detector simples de malware em arquivos.
@@ -48,6 +49,15 @@ make
 cd sort
 # make ou gcc sort.c -o sort
 ./sort   # se aplicável
+```
+
+### Compilar e executar Listas Básicas (`listas`)
+
+```sh
+cd listas
+# compilar o respectivo arquivo .c, por exemplo:
+gcc listaInteirosComVetor.c -o listaInteiros
+./listaInteiros
 ```
 
 ### Compilar e executar Lista Simplesmente Encadeada (`listase`)
@@ -95,6 +105,10 @@ arvore-hash/
 ├── geraDados.c
 ├── interface.c
 ├── Makefile
+listas/
+├── definatipos
+├── listaInteirosComVetor.c
+├── listaencadeada
 listase/
 ├── aula.c
 ├── listase.c
@@ -118,6 +132,7 @@ verifica-malware/
 
 Para acessar o código da Questão 1 diretamente, [clique aqui](https://github.com/arielrbrdev/estruturas-de-dados-c/tree/main/q1).
 Para acessar o sistema de árvore/hash/arquivo binário, [clique aqui](https://github.com/arielrbrdev/estruturas-de-dados-c/tree/main/arvore-hash).
+Para explorar listas básicas, [clique aqui](https://github.com/arielrbrdev/estruturas-de-dados-c/tree/main/listas).
 Para explorar a lista encadeada, [clique aqui](https://github.com/arielrbrdev/estruturas-de-dados-c/tree/main/listase).
 Para ver os algoritmos de ordenação, [clique aqui](https://github.com/arielrbrdev/estruturas-de-dados-c/tree/main/sort).
 Para o detector de malware, [clique aqui](https://github.com/arielrbrdev/estruturas-de-dados-c/tree/main/verifica-malware).
