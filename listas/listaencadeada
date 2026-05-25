@@ -1,0 +1,179 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+typedef struct tipoNo {
+  int  dado;
+  struct tipoNo *prox;
+} tipoNo;
+
+
+typedef struct tipoLista {
+  tipoNo * prim;
+}tipoLista;
+
+void criar(tipoLista *pLista){
+  pLista->prim = NULL;
+}
+// insere um elemento na última posição
+void inserir(tipoLista *pLista, int elemento){
+  tipoNo * aux;
+
+  aux = (tipoNo*)  malloc(sizeof(tipoNo));
+  aux-> dado = elemento;
+  aux->prox = pLista->prim;
+  pLista->prim = aux;
+}
+
+// APENAS PARA SERVIR DE EXEMPLO, JA TEMOS A MOSTRAR ABAIXO
+void mostrarComFor(tipoLista *pLista) {
+
+  tipoNo *aux;
+
+  printf("[ ") ;
+  for(aux = pLista->prim; aux != NULL ; aux = aux->prox){ 
+    printf("%d ", aux->dado);
+  }
+  printf("]") ;
+}
+
+
+void concatena(tipoLista *l1,tipoLista *l2) {
+  tipoNo *aux;
+  if(l1->prim == NULL) {
+    l1->prim = l2->prim;
+  }
+  else {
+    aux = l1->prim;
+    while(aux->prox) {
+      aux = aux->prox;
+    }
+    aux->prox = l2->prim;
+  }
+  l2->prim = NULL;
+}
+
+
+void mostrar(tipoLista *pLista) {
+
+  tipoNo *aux;
+  aux = pLista->prim;
+
+  printf("[ ") ;
+  while(aux != NULL) {  // for(aux = pLista->prim; aux; aux = aux->prox)
+    printf("%d ", aux->dado);
+    aux = aux->prox;
+  }
+  printf("]") ;
+}
+
+int buscarChave(tipoLista *pLista, int chave) {
+
+  tipoNo *aux;
+
+  aux = pLista->prim;
+
+  while(aux != NULL) {  // for(aux = pLista->prim; aux; aux = aux->prox)
+    if(aux->dado == chave) {
+      return 1;
+    }
+    aux = aux->prox;
+  }
+    return 0;
+}
+
+
+
+int maiorValor(tipoLista *pLista, int chave) {
+
+  tipoNo *aux;
+  int maior;
+  aux = pLista->prim;
+  maior = aux->dado;
+  aux = aux->prox;
+  while(aux != NULL) {  // for(aux = pLista->prim; aux; aux = aux->prox)
+    if(aux->dado > maior) {
+      maior = aux->dado;
+    }
+    aux = aux->prox;
+  }
+  return maior;
+}
+
+
+
+float mediaDosValores(tipoLista *pLista, int chave) {
+
+  tipoNo *aux;
+  float soma = 0;
+  unsigned numElementos = 0;
+  aux = pLista->prim;
+  while(aux != NULL) {  // for(aux = pLista->prim; aux; aux = aux->prox)
+    soma = soma + aux->dado;
+    numElementos++;
+    aux = aux->prox;
+  }
+  if(numElementos) {
+    return soma/numElementos;
+  }
+  return 0;
+}
+
+char listaVazia(tipoLista *pLista) {
+  if(pLista->prim) {
+    return 0;
+  }
+  return 1;
+}
+
+int remover(tipoLista *pLista, int chave) {
+
+  tipoNo *aux, *temp;
+
+  if(pLista->prim) { // procura a chave se há elmentos
+    aux = pLista->prim;
+   
+    if(aux->dado == chave) {
+      // se chave a ser apagada é o primeiro da lista 
+      pLista->prim = aux->prox;
+      free(aux);
+      return 1; // 1 porque indica que apagou
+    }
+    // aqui já sei que não é a primeia
+    // vou ver se é da segunda em diante
+    while(aux->prox != NULL) {  // for(aux = pLista->prim; aux; aux = aux->prox)
+      if(aux->prox->dado == chave) { // achei a chave para apagar
+	temp = aux->prox;
+	aux->prox = temp->prox; // "desliga" da lista
+	free(temp); // libera a memória
+	return 1;
+      }
+      aux = aux->prox;
+    }
+  }
+  return 0;
+}
+
+
+int main(){
+  tipoLista lista, l1;
+  criar(&l1);
+  criar(&lista);
+  inserir(&lista, 10);
+  inserir(&lista, 2);
+  inserir(&lista, 9);
+  inserir(&lista, 4);
+  inserir(&lista, 5);
+  printf("Lista Original:"); mostrar(&lista);
+  remover(&lista, 9); // remover uma chave
+  printf("\nLista Depois de remover a chave 9:"); mostrar(&lista);
+  remover(&lista, 10);
+  printf("\nLista Depois de remover a chave 10:"); mostrar(&lista);
+  remover(&lista, 2);
+  printf("\nLista Depois de remover a chave 2:"); mostrar(&lista);
+  remover(&lista, 5);
+  printf("\nLista Depois de remover a chave 5:"); mostrar(&lista);
+  remover(&lista, 4);
+    printf("\nLista Depois de remover a chave 4:"); mostrar(&lista);
+    printf("\n");
+}
