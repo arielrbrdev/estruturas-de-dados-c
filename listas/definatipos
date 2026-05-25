@@ -1,0 +1,165 @@
+#include <stdio.h>
+#include <string.h>
+
+
+#define TAM_VET 4
+
+// Structs, variáveis que agregam várias informações (atributos) 
+// sobre algum objeto ou entidade do mundo real
+
+typedef struct tipoArvore {
+  float diametro;
+  char familia[40];
+  unsigned idade;
+}    tipoArvore;
+
+
+/*
+Lê dados para um vetor de árvores
+*/
+
+void lerVetorDeArvores(tipoArvore vet[], unsigned tam) {
+  unsigned x;
+
+  for(x = 0 ; x < tam; x++) {
+    printf("Entre com o diametro da árvore:"); 
+    scanf("%f%*c",&vet[x].diametro);
+    printf("Entre com a familia da árvore:"); 
+    scanf("%[^\n]%*c",vet[x].familia);
+    printf("Entre com a idade da árvore:"); 
+    scanf("%u%*c",&vet[x].idade);
+  }
+}
+
+
+
+/*
+ordena um vetor de árvores por Familia
+*/
+// perguntar se string s1 > s2 ----->    strcmp(s1,s2) > 0 , por isso estamos usando strcmp abaixo. Lembre nas provas!!!!!
+
+
+void ordenarArvoresCrescentePorFamilia(tipoArvore vet[], unsigned tam) {
+  long int i,j;
+  tipoArvore pivot;
+
+  for(i= 1 ; i < tam; i++) {
+    j = i - 1;
+    pivot = vet[i];
+    while( (j>=0) && (strcmp(vet[j].familia, pivot.familia) > 0)) {
+      vet[j+1] = vet[j];
+      j--;
+    }
+    vet[j+1] = pivot;
+  }
+}
+
+
+
+/*
+ordena um vetor de árvores por idade
+*/
+
+
+void ordenarArvoresCrescentePorIdade(tipoArvore vet[], unsigned tam) {
+  long int i,j;
+  tipoArvore pivot;
+
+  for(i= 1 ; i < tam; i++) {
+    j = i - 1;
+    pivot = vet[i];
+    while( (j>=0) && (vet[j].idade > pivot.idade)) {
+      vet[j+1] = vet[j];
+      j--;
+    }
+    vet[j+1] = pivot;
+  }
+}
+
+
+
+/*
+ordena um vetor de árvores por idade, em ordem decrescente
+*/
+
+
+void ordenarArvoresDecrescentePorIdade(tipoArvore vet[], unsigned tam) {
+  long int i,j;
+  tipoArvore pivot;
+
+  for(i= 1 ; i < tam; i++) {
+    j = i - 1;
+    pivot = vet[i];
+    while( (j>=0) && (vet[j].idade < pivot.idade)) {
+      vet[j+1] = vet[j];
+      j--;
+    }
+    vet[j+1] = pivot;
+  }
+}
+
+
+/*
+mostra na tela um vetor de árvores 
+*/
+
+
+
+void mostrarVetorDeArvores(struct tipoArvore vet[], unsigned tam) {
+  unsigned x;
+
+  for(x = 0 ; x < tam; x++) {
+    printf("\nPOSICAO [%u] *********\n", x);
+    printf("Diametro: %.2f\n",vet[x].diametro);
+    printf("Familia : %s\n",vet[x].familia);
+    printf("Idade   : %u\n", vet[x].idade);
+  }
+}
+
+
+/*
+Implementar o algoritmo clássico de intercalação de 2 vetores ordenados
+*/
+
+void intercala(tipoArvore va[], unsigned tamVa, 
+	       tipoArvore vb[], unsigned tamVb, 
+	       tipoArvore vs[]) {
+  unsigned a=0,b=0,s=0;
+
+  while ( (a < tamVa) && ( b < tamVb) ) {    
+    if (va[a].idade < vb[b].idade) { vs[s] = va[a];  a++;    
+    }
+    else {   vs[s] = vb[b];      b++;    
+    }
+    s++;
+  }
+  while ( a < tamVa) {
+    vs[s] = va[a];  a++; s++;
+  }
+  while ( b < tamVb) {
+    vs[s] = vb[b];  b++; s++;
+  }
+}
+
+
+int main() {
+  struct tipoArvore v[TAM_VET];
+  unsigned x;
+
+  lerVetorDeArvores(v,TAM_VET);
+  printf("OLHA COMO FICOU O VETOR QUE VOCE DIGITOU: \n");
+  mostrarVetorDeArvores(v,TAM_VET);
+  
+  ordenarArvoresCrescentePorIdade(v, TAM_VET);
+  printf("OLHA COMO FICOU O VETOR DEPOIS QUE ORDENEI CRESCENTE POR IDADE: \n");
+  mostrarVetorDeArvores(v,TAM_VET);
+
+  ordenarArvoresDecrescentePorIdade(v, TAM_VET);
+  printf("OLHA COMO FICOU O VETOR DEPOIS QUE ORDENEI DECRESCENTE POR IDADE: \n");
+  mostrarVetorDeArvores(v,TAM_VET);
+
+ ordenarArvoresCrescentePorFamilia(v, TAM_VET);
+  printf("OLHA COMO FICOU O VETOR DEPOIS QUE ORDENEI CRESCENTE POR FAMILIA: \n");
+  mostrarVetorDeArvores(v,TAM_VET);
+
+}
